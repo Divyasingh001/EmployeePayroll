@@ -8,32 +8,36 @@ import java.util.List;
 
 import java.util.Optional;
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employeepayrollservice")
 public class EmployeeController {
     @Autowired
     employeeRepo employeeRepository;
 
-
+    //curl localhost:8080/employeepayrollservice/ -w "\n"
     //http:localhost:8080/employee/findall
-    @GetMapping("/findall")
+    @GetMapping("/")
     public List<EmployeeModel> getAllUsers() {
         return employeeRepository.findAll();
     }
 
+    //curl localhost:8080/employeepayrollservice/get/1 -w "\n"
     //http:localhost:8080/employee/findallgetbyid/1
-    @GetMapping("getbyid/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<EmployeeModel> getUserById(@PathVariable Long id) {
         return employeeRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
+    //curl -X POST -H "Content-Type: application/json" -d '{"name": "Lisa","salary":
+    //2000}' "http://localhost:8080/employeepayrollservice/create" -w "\n"
     //http:localhost:8080/employee/create/post
-    @PostMapping("create/post")
+    @PostMapping("create")
     public EmployeeModel createUser(@RequestBody EmployeeModel employee) {
         return employeeRepository.save(employee);
     }
 
+//    curl -X PUT -H "Content-Type: application/json" -d '{"name": "Lisa","salary": 2000}'
+//            "http://localhost:8080/employeepayrollservice/update" -w "\n"
     //http:localhost:8080/employee/update/1
     @PutMapping("update/{id}")
     public ResponseEntity<EmployeeModel> updateUser(@PathVariable Long id, @RequestBody EmployeeModel userDetails) {
@@ -49,6 +53,8 @@ public class EmployeeController {
     }
 
     //http:localhost:8080/employee/delete/1
+//• curl -X DELETE -H "Content-Type: application/json"
+//localhost:8080/employeepayrollservice/delete/1 -w "\n"
     @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         if (employeeRepository.existsById(id)) {
