@@ -38,7 +38,6 @@ public class EmployeeService {
         });
     }
 
-    // Delete user
     public boolean deleteUser(Long id) {
         if (employeeRepository.existsById(id)) {
             employeeRepository.deleteById(id);

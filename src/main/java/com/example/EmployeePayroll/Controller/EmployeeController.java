@@ -31,7 +31,7 @@ public class EmployeeController {
     //curl -X POST -H "Content-Type: application/json" -d '{"name": "Lisa","salary":
     //2000}' "http://localhost:8080/employeepayrollservice/create" -w "\n"
     //http:localhost:8080/employee/create/post
-    @PostMapping("create")
+    @PostMapping("/create")
     public EmployeeModel createUser(@RequestBody EmployeeModel employee) {
         return employeeRepository.save(employee);
     }

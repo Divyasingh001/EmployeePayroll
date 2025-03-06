@@ -55,8 +55,6 @@
 			<version>8.2.0</version> <!-- Ensure this version matches the latest -->
 			<scope>runtime</scope>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
