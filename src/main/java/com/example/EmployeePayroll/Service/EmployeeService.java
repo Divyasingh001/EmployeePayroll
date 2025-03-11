@@ -1,5 +1,4 @@
 package com.example.EmployeePayroll.Service;
-
 import com.example.EmployeePayroll.Interface.IemployeeService;
 import com.example.EmployeePayroll.Repository.employeeRepo;
 import com.example.EmployeePayroll.model.EmployeeModel;
@@ -7,17 +6,13 @@ import com.example.EmployeePayroll.Exception.UserException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-
 @Slf4j
 @Service
 public class EmployeeService implements IemployeeService {
-
     @Autowired
     private employeeRepo employeeRepository;
-
     @Override
     public List<EmployeeModel> getAllUsers() {
         try {
