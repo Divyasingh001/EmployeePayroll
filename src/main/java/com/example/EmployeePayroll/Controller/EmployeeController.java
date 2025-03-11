@@ -2,19 +2,19 @@ package com.example.EmployeePayroll.Controller;
 
 import com.example.EmployeePayroll.Service.EmployeeService;
 import com.example.EmployeePayroll.model.EmployeeModel;
+import jakarta.validation.Valid;  // Import Valid annotation
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/employeepayrollservice")
 public class EmployeeController {
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @GetMapping("/")
     public List<EmployeeModel> getAllUsers() {
@@ -29,12 +29,14 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
-    public EmployeeModel createUser(@RequestBody EmployeeModel employee) {
-        return employeeService.createUser(employee);
+    public ResponseEntity<EmployeeModel> createUser(@Valid @RequestBody EmployeeModel employee) {
+        EmployeeModel createdUser = employeeService.createUser(employee);
+        return ResponseEntity.ok(createdUser);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<EmployeeModel> updateUser(@PathVariable Long id, @RequestBody EmployeeModel userDetails) {
+    public ResponseEntity<EmployeeModel> updateUser(@PathVariable Long id,
+                                                    @Valid @RequestBody EmployeeModel userDetails) {
         return employeeService.updateUser(id, userDetails)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
