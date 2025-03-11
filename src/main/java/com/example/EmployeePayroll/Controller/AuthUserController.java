@@ -1,7 +1,5 @@
 package com.example.EmployeePayroll.Controller;
-import com.example.EmployeePayroll.DTO.AuthUserDTO;
-import com.example.EmployeePayroll.DTO.LoginDTO;
-import com.example.EmployeePayroll.DTO.ResponseDTO;
+import com.example.EmployeePayroll.DTO.*;
 import com.example.EmployeePayroll.Service.AuthenticationService;
 import com.example.EmployeePayroll.model.AuthUser;
 
@@ -32,5 +30,21 @@ public class AuthUserController {
         String result = authenticationService.login(loginDTO);
         ResponseDTO responseUserDTO = new ResponseDTO("Login successfully!!", result);
         return new ResponseEntity<>(responseUserDTO, HttpStatus.OK);
+    } @PutMapping("/auth/forgotPassword/{email}")
+    public ResponseEntity<ResponseDTO> forgotPassword(@PathVariable String email,
+                                                      @Valid @RequestBody ForgetPassword forgotPasswordDTO) {
+        String responseMessage = authenticationService.forgotPassword(email, forgotPasswordDTO.getPassword());
+        ResponseDTO responseDTO = new ResponseDTO(responseMessage, null);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
+    @PutMapping("/auth/resetPassword/{email}")
+    public ResponseEntity<ResponseDTO> resetPassword(@PathVariable String email,
+                                                     @Valid @RequestBody ResetPassword resetPasswordDTO) {
+        String responseMessage = authenticationService.resetPassword(email,
+                resetPasswordDTO.getCurrentPassword(),
+                resetPasswordDTO.getNewPassword());
+        return new ResponseEntity<>(new ResponseDTO(responseMessage, null), HttpStatus.OK);
+    }
+
+
 }
