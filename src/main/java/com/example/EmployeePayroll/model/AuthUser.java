@@ -9,10 +9,14 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;  // Add this import
+
 @Data
 @NoArgsConstructor
 @Entity
-public class AuthUser {
+public class AuthUser implements Serializable {  // Implement Serializable
+
+    private static final long serialVersionUID = 1L;  // Recommended for serialization compatibility
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
