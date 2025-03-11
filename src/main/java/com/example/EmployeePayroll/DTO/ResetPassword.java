@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 @Getter
 @Setter
-
 public class ResetPassword {
     @NotBlank(message = "Current password cannot be empty")
     private String currentPassword;
